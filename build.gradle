@@ -1,0 +1,42 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+		disruptorVersion = '3.4.2'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.buzhou.exchange'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	all*.exclude module: 'logback-classic'
+}
+
+dependencies {
+	compile ('org.springframework.boot:spring-boot-starter'){
+		exclude module: 'spring-boot-starter-logging'
+	}
+	compile 'io.springfox:springfox-swagger2:2.8.0'
+	compile 'io.springfox:springfox-swagger-ui:2.8.0'
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+	compile('org.springframework.boot:spring-boot-starter-web')
+//	compile("com.lmax:disruptor:${disruptorVersion}")
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
